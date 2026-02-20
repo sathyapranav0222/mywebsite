@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Pranav — Personal website" />
+  <title>Pranav | Personal Brand</title>
+
+  <!-- Open Graph (nice previews on WhatsApp/LinkedIn) -->
+  <meta property="og:title" content="Pranav | Personal Brand" />
+  <meta property="og:description" content="Product-minded Business Analyst. Building simple, useful experiences." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --bg2:#0d1730;
+      --card:rgba(255,255,255,.06);
+      --line:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius:18px;
+      --max:1120px;
+
+      --accent1: rgba(64,168,255,.95);
+      --accent2: rgba(178,92,255,.95);
+      --good: rgba(44,255,168,.95);
+    }
+
+    [data-theme="light"]{
+      --bg:#f7f9fc;
+      --bg2:#eef3ff;
+      --card: rgba(17,24,39,.05);
+      --line: rgba(17,24,39,.14);
+      --text: rgba(17,24,39,.92);
+      --muted: rgba(17,24,39,.68);
+      --shadow: 0 18px 60px rgba(17,24,39,.12);
+
+      --accent1: rgba(37,99,235,.95);
+      --accent2: rgba(124,58,237,.95);
+      --good: rgba(16,185,129,.95);
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 15% 10%, color-mix(in oklab, var(--accent1) 32%, transparent), transparent 55%),
+        radial-gradient(900px 500px at 90% 20%, color-mix(in oklab, var(--accent2) 28%, transparent), transparent 55%),
+        radial-gradient(700px 420px at 50% 100%, color-mix(in oklab, var(--good) 16%, transparent), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      min-height:100vh;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .container{ width:min(var(--max), calc(100% - 40px)); margin:0 auto; }
+
+    /* Nav */
+    .nav{
+      position:sticky; top:0; z-index:30;
+      background: linear-gradient(to bottom, color-mix(in oklab, var(--bg) 85%, transparent), color-mix(in oklab, var(--bg) 55%, transparent));
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap: 18px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.2px;
+    }
+    .logo{
+      width:36px; height:36px; border-radius:14px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      box-shadow: 0 14px 35px rgba(0,0,0,.20);
+      display:grid; place-items:center;
+      font-weight:900;
+    }
+    .links{ display:flex; align-items:center; gap: 14px; flex-wrap:wrap; }
+    .links a{
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 10px;
+      transition: .18s ease;
+      font-weight:600;
+    }
+    .links a:hover{ background: color-mix(in oklab, var(--card) 100%, transparent); color: var(--text); }
+
+    .cta{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--text);
+      font-weight: 700;
+      transition: transform .12s ease, background .18s ease, border-color .18s ease;
+      cursor:pointer;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: color-mix(in oklab, var(--line) 45%, var(--text)); }
+    .btn.primary{
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      box-shadow: 0 16px 45px rgba(0,0,0,.22);
+    }
+    .btn.ghost{ background: transparent; }
+    .btn.icon{
+      padding: 10px 12px;
+    }
+
+    /* Mobile */
+    .menu-btn{ display:none; }
+    @media (max-width: 760px){
+      .links{ display:none; }
+      .menu-btn{ display:inline-flex; }
+      .mobile-menu{ display:none; padding: 0 0 14px; }
+      .mobile-menu.open{ display:block; }
+      .mobile-menu a{
+        display:block;
+        padding: 10px 12px;
+        margin-top: 8px;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: var(--card);
+        color: var(--muted);
+        font-weight:700;
+      }
+      .mobile-menu a:hover{ color: var(--text); }
+    }
+
+    /* Hero */
+    .hero{ padding: 64px 0 18px; }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-weight: 700;
+      width: fit-content;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--good);
+      box-shadow: 0 0 0 6px color-mix(in oklab, var(--good) 14%, transparent);
+    }
+
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(34px, 5.2vw, 58px);
+      line-height: 1.03;
+      letter-spacing: -0.02em;
+    }
+    .sub{
+      margin:0;
+      color: var(--muted);
+      font-size: 16.5px;
+      line-height: 1.7;
+      max-width: 70ch;
+    }
+
+    .hero-actions{ margin-top: 18px; display:flex; gap: 12px; flex-wrap:wrap; }
+    .stats{
+      margin-top: 18px;
+      display:flex; gap: 12px; flex-wrap:wrap;
+      color: var(--muted);
+    }
+    .stat{
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      font-weight:700;
+    }
+    .stat b{ color: var(--text); }
+
+    /* Cards & sections */
+    section{ padding: 38px 0; }
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between; gap: 14px; flex-wrap:wrap;
+      margin-bottom: 14px;
+    }
+    .section-title h2{
+      margin:0;
+      font-size: 26px;
+      letter-spacing:-.01em;
+    }
+    .section-title span{
+      color: var(--muted);
+      font-weight:700;
+    }
+
+    .card{
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card-inner{ padding: 18px; }
+    .divider{ height:1px; background: var(--line); margin: 16px 0; }
+
+    .list{
+      display:grid;
+      gap: 12px;
+    }
+    .row{
+      display:flex; align-items:flex-start; gap: 12px;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid color-mix(in oklab, var(--line) 92%, transparent);
+      background: color-mix(in oklab, var(--card) 100%, transparent);
+    }
+    .icon{
+      width: 36px; height: 36px; border-radius: 14px;
+      display:grid; place-items:center;
+      background: color-mix(in oklab, var(--card) 110%, transparent);
+      border: 1px solid var(--line);
+      flex: 0 0 auto;
+      font-weight:900;
+    }
+    .row b{ display:block; margin-bottom: 2px; }
+    .row p{ margin:0; color: var(--muted); line-height:1.6; }
+
+    .cols-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 980px){ .cols-3{ grid-template-columns: 1fr; } }
+
+    .badge{
+      display:inline-flex; align-items:center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: color-mix(in oklab, var(--card) 110%, transparent);
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing:.2px;
+      width: fit-content;
+    }
+
+    /* Projects */
+    .project{
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--card);
+    }
+    .project h3{ margin: 8px 0 6px; font-size: 18px; }
+    .project p{ margin: 0; color: var(--muted); line-height:1.6; }
+    .project .meta{ margin-top: 12px; display:flex; gap: 10px; flex-wrap:wrap; }
+
+    /* Contact */
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 980px){ .contact-grid{ grid-template-columns: 1fr; } }
+
+    input, textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: color-mix(in oklab, var(--card) 110%, transparent);
+      color: var(--text);
+      outline:none;
+      font: inherit;
+    }
+    textarea{ min-height: 120px; resize: vertical; }
+    label{ display:block; margin: 10px 0 6px; color: var(--muted); font-weight: 800; font-size: 12px; letter-spacing:.2px; }
+
+    footer{
+      padding: 28px 0 44px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .footer-grid{
+      display:flex; justify-content:space-between; align-items:center; gap: 12px; flex-wrap:wrap;
+    }
+    .small{ font-size: 13px; color: var(--muted); }
+    .k{ font-variant-numeric: tabular-nums; }
+
+    /* Skip link */
+    .skip{
+      position:absolute; left:-999px; top:8px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: var(--text);
+      font-weight: 800;
+    }
+    .skip:focus{ left: 12px; z-index:100; }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <header class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="#top" aria-label="Home">
+          <div class="logo">P</div>
+          <div>Pranav</div>
+        </a>
+
+        <nav class="links" aria-label="Primary navigation">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="cta">
+          <!-- Update these links -->
+          <a class="btn ghost" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn" href="#contact">Let’s talk</a>
+          <button class="btn icon" id="themeBtn" type="button" aria-label="Toggle theme">☾</button>
+          <button class="btn menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+        </div>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="hero" id="top">
+      <div class="container">
+        <div class="grid">
+          <div>
+            <div class="pill"><span class="dot"></span>Personal brand • Portfolio • Contact</div>
+            <h1>Hi, I’m Pranav.<br/>I build clear, usable product experiences.</h1>
+            <p class="sub">
+              I’m a Business Analyst / Product-minded problem solver in hospitality tech.
+              I work across requirements, user flows, analytics, and release-ready specs — keeping things simple for users and clear for teams.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn primary" href="#projects">View projects</a>
+              <a class="btn" href="#about">About me</a>
+              <a class="btn ghost" href="#" id="resumeLink">Download resume</a>
+            </div>
+
+            <div class="stats" aria-label="Highlights">
+              <div class="stat"><b>BA / PO</b> mindset</div>
+              <div class="stat"><b>UX + Metrics</b> driven</div>
+              <div class="stat"><b>Docs → Delivery</b> focused</div>
+            </div>
+          </div>
+
+          <aside class="card" aria-label="Profile card">
+            <div class="card-inner">
+              <div class="badge">Quick Profile</div>
+              <div style="margin-top:12px" class="list">
+                <div class="row">
+                  <div class="icon">⚡</div>
+                  <div>
+                    <b>What I do</b>
+                    <p>Requirements, user journeys, analytics mapping, and delivery-ready specs.</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="icon">🧭</div>
+                  <div>
+                    <b>What I value</b>
+                    <p>Clarity, speed, and making complex flows feel effortless.</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="icon">📍</div>
+                  <div>
+                    <b>Based in</b>
+                    <p>India (IST)</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="small">
+                <span class="k">Tip:</span> Update GitHub/LinkedIn links + resume URL in the HTML.
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-title">
+          <h2>About</h2>
+          <span>A little background</span>
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <p class="sub" style="max-width:none">
+              I work in hospitality tech and enjoy building product specs that teams can ship confidently.
+              My focus is aligning stakeholders, defining clear scope, documenting user flows, and connecting product work to measurable outcomes (events, dashboards, and success metrics).
+            </p>
+            <div class="divider"></div>
+            <div class="cols-3">
+              <div class="row">
+                <div class="icon">🧩</div>
+                <div>
+                  <b>Strength</b>
+                  <p>Breaking complex problems into simple, testable requirements.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="icon">🛠</div>
+                <div>
+                  <b>Tools</b>
+                  <p>Jira, Confluence, GA4, Figma, Excel, API docs.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="icon">🎯</div>
+                <div>
+                  <b>Outcome</b>
+                  <p>Better UX, fewer bugs, clearer delivery, happier stakeholders.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-title">
+          <h2>Skills</h2>
+          <span>What I’m good at</span>
+        </div>
+
+        <div class="cols-3">
+          <div class="project">
+            <div class="badge">Product</div>
+            <h3>Requirements & Scope</h3>
+            <p>User stories, acceptance criteria, BRD/PRD, edge cases, dependencies.</p>
+            <div class="meta">
+              <span class="badge">Stakeholder alignment</span>
+              <span class="badge">Release planning</span>
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="badge">Experience</div>
+            <h3>User Flow & UX</h3>
+            <p>Journey mapping, UI states, validations, error messaging, accessibility.</p>
+            <div class="meta">
+              <span class="badge">Flow diagrams</span>
+              <span class="badge">Figma review</span>
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="badge">Analytics</div>
+            <h3>Tracking & Metrics</h3>
+            <p>GA4 eCommerce events, naming standards, dashboards, conversion KPIs.</p>
+            <div class="meta">
+              <span class="badge">Event specs</span>
+              <span class="badge">Reporting</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-title">
+          <h2>Projects</h2>
+          <span>Highlights</span>
+        </div>
+
+        <div class="cols-3">
+          <article class="project">
+            <div class="badge">Spec → Ship</div>
+            <h3>Reservation Modify Flow</h3>
+            <p>Defined edit scope, validations, API expectations, and tracking events for user modifications.</p>
+            <div class="meta">
+              <span class="badge">UX states</span>
+              <span class="badge">Acceptance criteria</span>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="badge">Analytics</div>
+            <h3>GA4 Mapping for Hospitality</h3>
+            <p>Standardized event naming + eCommerce payload structure across Rooms, Spa, Dine, Activities.</p>
+            <div class="meta">
+              <span class="badge">GA4</span>
+              <span class="badge">Dashboards</span>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="badge">Platform</div>
+            <h3>Admin Portal Enhancements</h3>
+            <p>Permission-led features, configuration controls, and release-ready documentation.</p>
+            <div class="meta">
+              <span class="badge">Settings</span>
+              <span class="badge">Risk areas</span>
+            </div>
+          </article>
+        </div>
+
+        <div style="margin-top:12px" class="small">
+          Replace these with your actual projects + add GitHub links if available.
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-title">
+          <h2>Experience</h2>
+          <span>Timeline</span>
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <div class="list">
+              <div class="row">
+                <div class="icon">🏢</div>
+                <div>
+                  <b>Senior Business Analyst — Hospitality Tech</b>
+                  <p>Working across multi-product booking and payment experiences, aligning teams on scope, UX, APIs, and release readiness.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="icon">📈</div>
+                <div>
+                  <b>Analytics & Optimization</b>
+                  <p>Defined tracking standards and success metrics to measure conversion, revenue, and funnel drop-offs.</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="icon">✅</div>
+                <div>
+                  <b>Delivery & Quality</b>
+                  <p>Created detailed acceptance criteria, test scope, and negative scenarios to reduce gaps during QA/UAT.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+            <div class="small">
+              Want this section to be more “resume-like”? Add company names, dates, and role bullets.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-title">
+          <h2>Contact</h2>
+          <span>Say hello</span>
+        </div>
+
+        <div class="contact-grid">
+          <div class="card">
+            <div class="card-inner">
+              <p class="sub" style="max-width:none">
+                If you want to collaborate, talk product, or discuss opportunities, you can reach me here:
+              </p>
+              <div class="divider"></div>
+
+              <!-- Update these -->
+              <div class="list">
+                <div class="row">
+                  <div class="icon">✉</div>
+                  <div>
+                    <b>Email</b>
+                    <p><a href="mailto:yourname@email.com">yourname@email.com</a></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="icon">in</div>
+                  <div>
+                    <b>LinkedIn</b>
+                    <p><a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">linkedin.com/in/your-handle</a></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="icon">{ }</div>
+                  <div>
+                    <b>GitHub</b>
+                    <p><a href="https://github.com/" target="_blank" rel="noreferrer">github.com/your-handle</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-inner">
+              <div class="badge">Quick message</div>
+
+              <!-- This form uses mailto (no backend). Replace with Formspree / Netlify Forms if you want submissions. -->
+              <form onsubmit="return openMail(event)">
+                <label for="name">Name</label>
+                <input id="name" name="name" placeholder="Your name" required />
+
+                <label for="msg">Message</label>
+                <textarea id="msg" name="msg" placeholder="Write your message..." required></textarea>
+
+                <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+                  <button class="btn primary" type="submit">Send</button>
+                  <button class="btn" type="button" onclick="fillSample()">Fill sample</button>
+                </div>
+
+                <p class="small" style="margin-top:10px; color: var(--muted);">
+                  This opens your email client. For real form submissions, use Formspree/Netlify.
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="brand">
+            <div class="logo">P</div>
+            <div>
+              <div><b>Pranav</b></div>
+              <div class="small">© <span id="year"></span> • Built on GitHub Pages</div>
+            </div>
+          </div>
+          <div class="small">
+            <a href="#top">Back to top ↑</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // ====== Mobile menu ======
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (menuBtn) {
+      menuBtn.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      mobileMenu?.addEventListener('click', (e) => {
+        if (e.target && e.target.tagName === 'A') {
+          mobileMenu.classList.remove('open');
+          menuBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // ====== Theme toggle (persists) ======
+    const themeBtn = document.getElementById('themeBtn');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+
+    function updateThemeIcon() {
+      const t = document.documentElement.getAttribute('data-theme') || 'dark';
+      themeBtn.textContent = (t === 'light') ? '☀' : '☾';
+    }
+    updateThemeIcon();
+
+    themeBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = (current === 'light') ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateThemeIcon();
+    });
+
+    // ====== Footer year ======
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ====== Resume link placeholder ======
+    // Put your resume PDF in repo root as "Pranav_Resume.pdf" and set href here:
+    const resumeLink = document.getElementById('resumeLink');
+    resumeLink.setAttribute('href', 'Pranav_Resume.pdf');
+
+    // ====== Contact form (mailto) ======
+    function openMail(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const msg = document.getElementById('msg').value.trim();
+      const subject = encodeURIComponent(`Hello Pranav — from ${name}`);
+      const body = encodeURIComponent(msg + "\n\n— " + name);
+
+      // Update your email here:
+      const to = "yourname@email.com";
+      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+      return false;
+    }
+
+    function fillSample(){
+      document.getElementById('name').value = "Alex";
+      document.getElementById('msg').value =
+        "Hi Pranav, I came across your profile and would love to connect. Are you open to a quick chat this week?";
+    }
+  </script>
+</body>
+</html>
