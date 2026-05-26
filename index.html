@@ -1,241 +1,547 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Pranav | Senior Business Analyst</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pranav | Senior Business Analyst</title>
 
-<style>
-body{
-  margin:0;
-  font-family: Arial, Helvetica, sans-serif;
-  background:#0b1220;
-  color:#fff;
-}
-.container{
-  width:90%;
-  max-width:1100px;
-  margin:auto;
-}
-header{
-  background:#111a33;
-  padding:18px 0;
-  position:sticky;
-  top:0;
-}
-header h2{margin:0;}
-nav a{
-  color:#ccc;
-  margin-left:18px;
-  text-decoration:none;
-  font-weight:bold;
-}
-nav a:hover{color:#fff;}
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
 
-.hero{
-  padding:80px 0;
-}
-.hero h1{
-  font-size:48px;
-  margin-bottom:10px;
-}
-.hero p{
-  color:#bbb;
-  max-width:700px;
-}
+    html{
+      scroll-behavior:smooth;
+    }
 
-.section{
-  padding:50px 0;
-}
-.card{
-  background:#111a33;
-  padding:20px;
-  border-radius:12px;
-  margin-bottom:18px;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:18px;
-}
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      background:#000;
+      color:#fff;
+      overflow-x:hidden;
+    }
 
-footer{
-  text-align:center;
-  padding:30px 0;
-  border-top:1px solid #222;
-  color:#aaa;
-}
-</style>
+    /* BACKGROUND */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(circle at top left, rgba(0,102,255,.25), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(102,0,255,.2), transparent 35%);
+      z-index:-1;
+    }
+
+    .container{
+      width:90%;
+      max-width:1200px;
+      margin:auto;
+    }
+
+    /* NAVBAR */
+    nav{
+      position:fixed;
+      width:100%;
+      top:0;
+      z-index:999;
+      backdrop-filter: blur(14px);
+      background:rgba(0,0,0,.55);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .nav-content{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:20px 0;
+    }
+
+    .logo{
+      font-size:24px;
+      font-weight:700;
+      letter-spacing:1px;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:30px;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      color:#bbb;
+      font-size:15px;
+      transition:.3s;
+    }
+
+    .nav-links a:hover{
+      color:#fff;
+    }
+
+    /* HERO */
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      position:relative;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:40px;
+      align-items:center;
+    }
+
+    .hero-left h1{
+      font-size:72px;
+      line-height:1;
+      margin-bottom:20px;
+    }
+
+    .hero-left h1 span{
+      background:linear-gradient(90deg,#4da3ff,#8f5dff);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .hero-left p{
+      color:#aaa;
+      font-size:18px;
+      line-height:1.8;
+      max-width:650px;
+    }
+
+    .hero-buttons{
+      margin-top:30px;
+      display:flex;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:14px 24px;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:600;
+      transition:.3s;
+      display:inline-block;
+    }
+
+    .btn-primary{
+      background:linear-gradient(90deg,#4da3ff,#8f5dff);
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-3px);
+    }
+
+    .btn-outline{
+      border:1px solid rgba(255,255,255,.15);
+      color:#fff;
+    }
+
+    .btn-outline:hover{
+      background:rgba(255,255,255,.08);
+    }
+
+    /* HERO CARD */
+    .profile-card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:30px;
+      backdrop-filter: blur(12px);
+    }
+
+    .profile-card h3{
+      margin-bottom:20px;
+      font-size:24px;
+    }
+
+    .info-item{
+      margin-bottom:18px;
+    }
+
+    .info-item h4{
+      margin-bottom:5px;
+      color:#fff;
+    }
+
+    .info-item p{
+      color:#aaa;
+      line-height:1.6;
+    }
+
+    /* SECTION */
+    section{
+      padding:100px 0;
+    }
+
+    .section-title{
+      font-size:42px;
+      margin-bottom:50px;
+    }
+
+    .section-title span{
+      background:linear-gradient(90deg,#4da3ff,#8f5dff);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    /* GRID */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:25px;
+    }
+
+    /* CARD */
+    .card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:22px;
+      padding:28px;
+      transition:.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+      border-color:rgba(255,255,255,.18);
+    }
+
+    .card h3{
+      margin-bottom:15px;
+      font-size:22px;
+    }
+
+    .card p,
+    .card li{
+      color:#aaa;
+      line-height:1.8;
+    }
+
+    .card ul{
+      padding-left:18px;
+    }
+
+    /* EXPERIENCE */
+    .timeline{
+      display:flex;
+      flex-direction:column;
+      gap:25px;
+    }
+
+    /* CONTACT */
+    .contact-box{
+      text-align:center;
+      padding:50px;
+    }
+
+    .contact-box p{
+      color:#aaa;
+      margin-top:10px;
+      margin-bottom:20px;
+    }
+
+    /* FOOTER */
+    footer{
+      padding:40px 0;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:#777;
+    }
+
+    /* MOBILE */
+    @media(max-width:900px){
+
+      .hero-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-left h1{
+        font-size:52px;
+      }
+
+      .nav-links{
+        display:none;
+      }
+
+      .section-title{
+        font-size:34px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- NAV -->
-<header>
-  <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
-    <h2>Pranav</h2>
-    <nav>
+<!-- NAVBAR -->
+<nav>
+  <div class="container nav-content">
+    <div class="logo">Pranav</div>
+
+    <div class="nav-links">
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
-    </nav>
+    </div>
   </div>
-</header>
+</nav>
 
 <!-- HERO -->
-<section class="hero container">
-  <h1>Hi, I’m Pranav 👋</h1>
-  <p>
-    Senior Business Analyst with strong experience in product lifecycle delivery,
-    requirement engineering, UX collaboration, and analytics-driven decision making.
-    I specialize in translating business needs into scalable digital products.
-  </p>
+<section class="hero">
+  <div class="container hero-grid">
+
+    <div class="hero-left">
+      <h1>
+        Hi, I’m <span>Pranav</span>
+      </h1>
+
+      <p>
+        Senior Business Analyst at Agilysys with experience in
+        product lifecycle management, business requirement analysis,
+        UX collaboration, analytics-driven decision making,
+        and enterprise digital platform delivery.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Contact Me</a>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <h3>Quick Profile</h3>
+
+      <div class="info-item">
+        <h4>Current Role</h4>
+        <p>Senior Business Analyst — Agilysys (2022 – Present)</p>
+      </div>
+
+      <div class="info-item">
+        <h4>Previous Experience</h4>
+        <p>Hinduja Leyland Finance Ltd & Gro Digital Platforms</p>
+      </div>
+
+      <div class="info-item">
+        <h4>Specialization</h4>
+        <p>Business Analysis, Product Management, UX, Analytics, Documentation</p>
+      </div>
+
+      <div class="info-item">
+        <h4>Location</h4>
+        <p>Chennai, India</p>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <!-- ABOUT -->
-<section id="about" class="section container">
-  <h2>About Me</h2>
+<section id="about">
+  <div class="container">
 
-  <div class="card">
-    <p>
-      I’m currently working as a <b>Senior Business Analyst at Agilysys (2022 – Present)</b>,
-      contributing to hospitality technology platforms across booking,
-      guest experience, and digital commerce journeys.
-    </p>
+    <h2 class="section-title">
+      About <span>Me</span>
+    </h2>
 
-    <p>
-      I have end-to-end product exposure — from market research and requirement
-      workshops to testing, release, and analytics tracking.
-      I enjoy building structured BRDs, defining user journeys,
-      and enabling delivery teams with clear implementation scope.
-    </p>
+    <div class="card">
+      <p>
+        I’m a Senior Business Analyst passionate about building scalable
+        and user-friendly digital experiences. I specialize in translating
+        complex business requirements into clear implementation-ready solutions.
+      </p>
+
+      <br>
+
+      <p>
+        My experience spans across hospitality technology, logistics platforms,
+        product strategy, analytics, UX flows, stakeholder management,
+        release planning, and enterprise application delivery.
+      </p>
+    </div>
+
   </div>
 </section>
 
 <!-- SKILLS -->
-<section id="skills" class="section container">
-  <h2>Skills</h2>
+<section id="skills">
+  <div class="container">
 
-  <div class="grid">
+    <h2 class="section-title">
+      My <span>Skills</span>
+    </h2>
 
-    <div class="card">
-      <h3>Business Analysis</h3>
-      <p>
-        BRD, User Stories, Use Cases, Acceptance Criteria,
-        Functional & Non-Functional Requirements
-      </p>
+    <div class="grid">
+
+      <div class="card">
+        <h3>Business Analysis</h3>
+        <p>
+          BRD, User Stories, Acceptance Criteria,
+          Use Cases, Requirement Workshops,
+          Functional Documentation
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Product Management</h3>
+        <p>
+          Product Lifecycle, Release Planning,
+          Stakeholder Coordination,
+          Vendor Management
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>UX & UI</h3>
+        <p>
+          User Journeys, UX Validation,
+          Flow Mapping, Click Optimization,
+          User-Friendly Design Reviews
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Tools</h3>
+        <p>
+          Jira, Visio, Excel,
+          Figma, Analytics Platforms,
+          Documentation Tools
+        </p>
+      </div>
+
     </div>
-
-    <div class="card">
-      <h3>Product & Project</h3>
-      <p>
-        Product Lifecycle, Roadmaps, Stakeholder Workshops,
-        Vendor Coordination, Release Planning
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>UX & Design</h3>
-      <p>
-        UX Flows, Wireframes, UI Reviews,
-        Click Optimization, User Journey Mapping
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Tools</h3>
-      <p>
-        Jira, Visio, Excel, Figma, Analytics Tools
-      </p>
-    </div>
-
   </div>
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience" class="section container">
-  <h2>Experience</h2>
+<section id="experience">
+  <div class="container">
 
-  <div class="card">
-    <h3>Senior Business Analyst — Agilysys</h3>
-    <p><i>2022 – Present</i></p>
-    <ul>
-      <li>Working on hospitality booking & commerce platforms</li>
-      <li>Driving requirements, UX scope, and integrations</li>
-      <li>Creating delivery-ready documentation for product releases</li>
-    </ul>
-  </div>
+    <h2 class="section-title">
+      Work <span>Experience</span>
+    </h2>
 
-  <div class="card">
-    <h3>Business Analyst / Product Owner</h3>
-    <p><i>Hinduja Leyland Finance Ltd & Gro Digital Platforms | 2019 – 2022</i></p>
-    <ul>
-      <li>Conducted market research with 200+ transporters & brokers</li>
-      <li>Created 6000+ pages of business requirement documentation</li>
-      <li>Defined process flows, test cases, and UX journeys</li>
-      <li>Coordinated IT vendors & product teams</li>
-    </ul>
+    <div class="timeline">
+
+      <div class="card">
+        <h3>Senior Business Analyst — Agilysys</h3>
+        <p><b>2022 – Present</b></p>
+
+        <br>
+
+        <ul>
+          <li>Working on hospitality booking and commerce platforms</li>
+          <li>Driving business requirements and UX scope definition</li>
+          <li>Creating release-ready implementation documentation</li>
+          <li>Collaborating with QA, development, and product teams</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Business Analyst / Product Owner</h3>
+        <p><b>Hinduja Leyland Finance Ltd & Gro Digital Platforms</b></p>
+        <p>2019 – 2022</p>
+
+        <br>
+
+        <ul>
+          <li>Conducted market research with 200+ transporters & brokers</li>
+          <li>Created 6000+ pages of BRD documentation</li>
+          <li>Defined UX flows, test cases, and product requirements</li>
+          <li>Managed stakeholder and vendor coordination</li>
+        </ul>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects" class="section container">
-  <h2>Projects</h2>
+<section id="projects">
+  <div class="container">
 
-  <div class="grid">
+    <h2 class="section-title">
+      Featured <span>Projects</span>
+    </h2>
 
-    <div class="card">
-      <h3>Transporter App</h3>
-      <p>
-        30+ features • Live product • 150+ users •
-        Enabled 3-click load confirmation
-      </p>
-    </div>
+    <div class="grid">
 
-    <div class="card">
-      <h3>Shipper Application</h3>
-      <p>
-        Used for Ashok Leyland outbound transportation
-      </p>
-    </div>
+      <div class="card">
+        <h3>Transporter Application</h3>
+        <p>
+          30+ features • Live application • 150+ users •
+          Optimized load confirmation process
+        </p>
+      </div>
 
-    <div class="card">
-      <h3>Driver Mobile App</h3>
-      <p>
-        Fleet & transport enablement with operational tracking
-      </p>
-    </div>
+      <div class="card">
+        <h3>Shipper Platform</h3>
+        <p>
+          Web & mobile platform used for outbound transportation workflows
+        </p>
+      </div>
 
-    <div class="card">
-      <h3>Fuel Credit Application</h3>
-      <p>
-        Integrated with IOCL & HPCL • 1000+ users
-      </p>
-    </div>
+      <div class="card">
+        <h3>Driver Mobile App</h3>
+        <p>
+          Fleet enablement platform with operational tracking workflows
+        </p>
+      </div>
 
-    <div class="card">
-      <h3>Internal Admin Platform</h3>
-      <p>50+ operational management features</p>
+      <div class="card">
+        <h3>Fuel Credit Application</h3>
+        <p>
+          Integrated with IOCL & HPCL • 1000+ users
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Internal Admin Platform</h3>
+        <p>
+          Operational management application with 50+ enterprise features
+        </p>
+      </div>
+
     </div>
 
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="section container">
-  <h2>Contact</h2>
+<section id="contact">
+  <div class="container">
 
-  <div class="card">
-    <p>Email: sathyapranav0222@gmail.com</p>
-    <p>Phone: +91 9087 13 2272</p>
-    <p>Location: Chennai, India</p>
+    <div class="card contact-box">
+
+      <h2 class="section-title">
+        Let’s <span>Connect</span>
+      </h2>
+
+      <p>
+        Open to collaboration, product discussions,
+        and professional opportunities.
+      </p>
+
+      <a href="mailto:sathyapranav0222@gmail.com" class="btn btn-primary">
+        Email Me
+      </a>
+
+    </div>
+
   </div>
 </section>
 
 <footer>
-  © 2026 Pranav • Hosted on GitHub Pages
+  © 2026 Pranav • Senior Business Analyst
 </footer>
 
 </body>
