@@ -289,8 +289,9 @@
     .wave-sep svg { display:block; }
 
     /* SCROLL REVEAL */
-    .reveal { opacity:0; transform:translateY(28px); transition:opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1); }
-    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal { opacity:1; transform:none; transition:opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1); }
+    .reveal.reveal-pending { opacity:0; transform:translateY(28px); }
+    .reveal:focus-within { opacity:1; transform:none; }
 
     /* DECORATIVE GRID BG */
     .grid-bg {
@@ -302,7 +303,12 @@
       .hero-grid { grid-template-columns:1fr; gap:40px; }
       .hero-left h1 { font-size:48px; }
       #about .inner { grid-template-columns:1fr; }
-      .nav-links { display:none; }
+      .nav-inner { flex-wrap:wrap; height:auto; min-height:68px; padding:12px 20px; gap:12px; }
+      .nav-links { flex-wrap:wrap; gap:12px 20px; }
+      .nav-links a { display:block; padding:10px 0; }
+      .nav-enhanced .menu-btn { display:block; }
+      .nav-enhanced .nav-links { display:none; width:100%; flex-direction:column; max-height:calc(100dvh - 92px); overflow-y:auto; }
+      .nav-enhanced .nav-links.open { display:flex; }
       .stat-row { gap:18px; }
       .contact-wrapper { padding:40px 24px; }
     }
@@ -312,9 +318,36 @@
       .section-title { font-size:32px; }
       .contact-wrapper h2 { font-size:30px; }
     }
+
+    /* Accessible navigation and readable, flexible small-screen content. */
+    section, main { scroll-margin-top:90px; }
+    .skip-link { position:fixed; top:8px; left:8px; z-index:2000; padding:12px 18px; background:var(--navy); color:white; border-radius:8px; transform:translateY(-160%); }
+    .skip-link:focus { transform:none; }
+    :focus-visible { outline:3px solid var(--blue-dark); outline-offset:4px; }
+    .menu-btn { display:none; padding:10px 16px; border:1px solid var(--border); border-radius:10px; background:white; color:var(--navy); font:inherit; cursor:pointer; }
+    .profile-row-label, .stat-label, .section-label, .avail-badge, .exp-badge, .tag, .proj-pill { font-size:13px; line-height:1.5; }
+    .hero-grid > *, .profile-row > div, .exp-card { min-width:0; }
+    .stat-row { flex-wrap:wrap; }
+    .proj-grid { grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr)); }
+    .skills-grid { grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); }
+    .proj-pill, .tag, .contact-item { overflow-wrap:anywhere; max-width:100%; }
+    .contact-wrapper::before, .contact-wrapper::after { pointer-events:none; }
+    @media(max-width:600px) {
+      .exp-item { gap:12px; }
+      .exp-card { padding:22px 18px; }
+      .profile-card { padding:24px; }
+      .contact-item { min-width:0; }
+      .contact-details { gap:16px; }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      *, *::before, *::after { animation:none !important; transition:none !important; }
+      .reveal.reveal-pending { opacity:1; transform:none; }
+    }
   </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
@@ -324,7 +357,8 @@
 <nav>
   <div class="nav-inner">
     <div class="logo">PSB</div>
-    <ul class="nav-links">
+    <button class="menu-btn" id="menuBtn" type="button" aria-controls="navLinks" aria-expanded="false" aria-label="Open navigation menu" hidden>Menu</button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -334,6 +368,7 @@
   </div>
 </nav>
 
+<main id="main-content" tabindex="-1">
 <!-- HERO -->
 <section class="hero">
   <div class="container">
@@ -443,9 +478,9 @@
 <section id="about" style="background:var(--off);">
   <div class="container">
     <div class="section-label reveal">About Me</div>
-    <div class="section-title reveal">Turning complexity<br>into clarity</div>
+    <h2 class="section-title reveal">Turning complexity<br>into clarity</h2>
 
-    <div class="inner reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+    <div class="inner reveal">
       <div class="about-text">
         <p>I'm a Senior Business Analyst passionate about building scalable and user-friendly digital experiences. I specialise in translating complex business requirements into clear, implementation-ready solutions.</p>
         <p>My experience spans hospitality technology, logistics platforms, product strategy, analytics, UX flows, stakeholder management, release planning, and enterprise application delivery.</p>
@@ -473,7 +508,7 @@
 <section id="skills">
   <div class="container">
     <div class="section-label reveal">Capabilities</div>
-    <div class="section-title reveal">My Skill Set</div>
+    <h2 class="section-title reveal">My Skill Set</h2>
     <p class="section-sub reveal">A cross-disciplinary toolkit spanning analysis, product thinking, design, and tools — honed over 6+ years of real-world delivery.</p>
 
     <div class="skills-grid">
@@ -547,7 +582,7 @@
 <section id="experience" style="background:var(--off);">
   <div class="container">
     <div class="section-label reveal">Career Path</div>
-    <div class="section-title reveal">Work Experience</div>
+    <h2 class="section-title reveal">Work Experience</h2>
     <p class="section-sub reveal">A track record of delivering impactful, complex, and user-centric digital products across industries.</p>
 
     <div class="exp-timeline">
@@ -560,15 +595,17 @@
         </div>
         <div class="exp-card">
           <div class="exp-head">
-            <div class="exp-title">Senior Business Analyst</div>
+            <h3 class="exp-title">Senior Business Analyst</h3>
             <div class="exp-badge">2022 – Present</div>
           </div>
           <div class="exp-company">Agilysys · Hospitality Technology</div>
           <ul class="exp-list">
-            <li>Working on hospitality booking and commerce platforms at enterprise scale</li>
-            <li>Driving business requirements and UX scope definition with cross-functional teams</li>
-            <li>Creating release-ready implementation documentation for development handoffs</li>
-            <li>Collaborating with QA, development, and product teams to deliver quality solutions</li>
+            <li>Define functional solutions for BOOK, SPEND, Express Mobile and Express Kiosk with Product Owners and customers.</li>
+            <li>Translate requirements into user stories, acceptance criteria, business rules and workflows, and review user journeys with UX teams.</li>
+            <li>Guide Development and QA through requirement grooming, implementation questions and reviews against approved requirements.</li>
+            <li>Review test coverage and validate critical workflows through functional testing, Postman API checks and JMeter performance testing when required.</li>
+            <li>Resolve customer questions and escalations with internal teams, and inform roadmap priorities using product impact and dependencies.</li>
+            <li>Support delivery through production deployment and communicate feature and release updates to customers and stakeholders.</li>
           </ul>
         </div>
       </div>
@@ -581,7 +618,7 @@
         </div>
         <div class="exp-card">
           <div class="exp-head">
-            <div class="exp-title">Business Analyst / Product Owner</div>
+            <h3 class="exp-title">Business Analyst / Product Owner</h3>
             <div class="exp-badge">2019 – 2022</div>
           </div>
           <div class="exp-company">Hinduja Leyland Finance Ltd & Gro Digital Platforms</div>
@@ -609,15 +646,15 @@
 <section id="projects">
   <div class="container">
     <div class="section-label reveal">Portfolio</div>
-    <div class="section-title reveal">Featured Projects</div>
-    <p class="section-sub reveal">Digital products and platforms built end-to-end — from requirement gathering through to launch and iteration.</p>
+    <h2 class="section-title reveal">Featured Projects</h2>
+    <p class="section-sub reveal">Selected logistics products I helped deliver. Across this portfolio, my work covered business requirements, UX flows, test cases, and stakeholder and vendor coordination.</p>
 
     <div class="proj-grid">
 
       <div class="proj-card reveal">
         <div class="proj-num">01</div>
         <h3>Transporter Application</h3>
-        <p>30+ features, live application with 150+ active users. Streamlined the load confirmation process and improved transporter workflow efficiency.</p>
+        <p>To simplify load confirmation and transporter workflows, I helped take the application from requirements to delivery. The live product includes 30+ features and serves 150+ active users.</p>
         <div class="proj-pill">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           Live · 150+ Users
@@ -627,7 +664,7 @@
       <div class="proj-card reveal" style="transition-delay:.07s">
         <div class="proj-num">02</div>
         <h3>Shipper Platform</h3>
-        <p>Web and mobile platform designed for outbound transportation workflows — enabling real-time visibility and management for shipper operations.</p>
+        <p>A web and mobile platform for managing outbound transportation. Part of my logistics delivery portfolio, it gives shipper teams visibility into transportation workflows and operations.</p>
         <div class="proj-pill">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           Web & Mobile
@@ -637,7 +674,7 @@
       <div class="proj-card reveal" style="transition-delay:.14s">
         <div class="proj-num">03</div>
         <h3>Driver Mobile App</h3>
-        <p>Fleet enablement platform with operational tracking workflows to support drivers in managing deliveries and fleet operations efficiently.</p>
+        <p>A mobile application addressing drivers’ delivery and operational tracking needs. Part of my logistics delivery portfolio, it supports delivery management and fleet workflows.</p>
         <div class="proj-pill">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           Fleet Management
@@ -647,7 +684,7 @@
       <div class="proj-card reveal" style="transition-delay:.21s">
         <div class="proj-num">04</div>
         <h3>Fuel Credit Application</h3>
-        <p>Integrated with IOCL & HPCL fuel networks, serving 1,000+ users across the logistics ecosystem for seamless fuel credit transactions.</p>
+        <p>A fuel-credit application connecting logistics users with IOCL and HPCL networks. I supported it within my logistics portfolio; the integrated platform serves more than 1,000 users.</p>
         <div class="proj-pill">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           1,000+ Users
@@ -657,7 +694,7 @@
       <div class="proj-card reveal" style="transition-delay:.28s">
         <div class="proj-num">05</div>
         <h3>Internal Admin Platform</h3>
-        <p>Operational management application with 50+ enterprise features for internal team management, reporting, and process automation.</p>
+        <p>An internal platform addressing team management, reporting and operational process needs. Part of my logistics delivery portfolio, it brings these workflows together through 50+ enterprise features.</p>
         <div class="proj-pill">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           50+ Features
@@ -692,6 +729,8 @@
   </div>
 </section>
 
+</main>
+
 <footer>
   <div class="container">
     © 2026 <span>Pranav Sathya Babu</span> · Senior Business Analyst
@@ -699,12 +738,67 @@
 </footer>
 
 <script>
-  const obs = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('visible'); }
-    });
-  },{threshold:0.12});
-  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  const mobile = window.matchMedia('(max-width:960px)');
+  function setMenu(open, restoreFocus = false) {
+    navLinks.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+    if (restoreFocus) menuBtn.focus();
+  }
+  menuBtn.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menuBtn.getAttribute('aria-expanded') === 'true') {
+      setMenu(false, true);
+    }
+  });
+  navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    setMenu(false);
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      target.setAttribute('tabindex', '-1');
+      target.focus({preventScroll:true});
+    }
+  }));
+  mobile.addEventListener('change', () => {
+    const focusWillHide = mobile.matches && navLinks.contains(document.activeElement);
+    setMenu(false, focusWillHide);
+    if (!mobile.matches && document.activeElement === menuBtn) navLinks.querySelector('a').focus();
+  });
+  menuBtn.hidden = false;
+  document.querySelector('nav').classList.add('nav-enhanced');
+
+  // Only opt offscreen content into animation after observation succeeds.
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const reveals = [...document.querySelectorAll('.reveal')];
+  let observer;
+  function showAll() {
+    if (observer) observer.disconnect();
+    reveals.forEach(el => el.classList.remove('reveal-pending'));
+  }
+  if (!motion.matches && 'IntersectionObserver' in window) {
+    try {
+      observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('reveal-pending');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {threshold:0});
+      reveals.forEach(el => {
+        if (el.getBoundingClientRect().top >= window.innerHeight) {
+          observer.observe(el);
+          el.classList.add('reveal-pending');
+        }
+      });
+    } catch (error) {
+      showAll();
+    }
+  }
+  motion.addEventListener('change', showAll);
+  window.addEventListener('beforeprint', showAll);
 </script>
 </body>
 </html>
