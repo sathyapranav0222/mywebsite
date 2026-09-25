@@ -1,5 +1,3 @@
-Html
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,8 +11,8 @@ Html
     content="Portfolio of Pranav Sathya Babu, Senior Business Analyst specialising in product delivery, business analysis, UX collaboration, testing, analytics and enterprise digital platforms."
   >
 
-  <link rel="icon" type="image/png" href="/favicon.png">
-  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -759,7 +757,7 @@ Html
 
       color: var(--blue);
 
-      font-size: 11px;
+      font-size: 13px;
 
       font-weight: 700;
 
@@ -823,7 +821,7 @@ Html
 
       color: var(--muted);
 
-      font-size: 9px;
+      font-size: 13px;
 
       font-weight: 700;
 
@@ -948,7 +946,7 @@ Html
     .stat-label {
       color: var(--muted);
 
-      font-size: 10px;
+      font-size: 13px;
 
       font-weight: 700;
 
@@ -970,7 +968,7 @@ Html
 
       color: var(--blue);
 
-      font-size: 11px;
+      font-size: 13px;
 
       font-weight: 700;
 
@@ -1127,7 +1125,7 @@ Html
     .life-step p {
       color: var(--muted);
 
-      font-size: 11px;
+      font-size: 13px;
 
       line-height: 1.65;
     }
@@ -1358,7 +1356,7 @@ Html
 
       color: var(--blue-dark);
 
-      font-size: 10px;
+      font-size: 13px;
 
       font-weight: 700;
     }
@@ -1489,7 +1487,7 @@ Html
 
       color: var(--blue-dark);
 
-      font-size: 10px;
+      font-size: 13px;
 
       font-weight: 700;
     }
@@ -1531,7 +1529,7 @@ Html
 
       color: var(--blue-dark);
 
-      font-size: 11px;
+      font-size: 13px;
 
       font-weight: 700;
     }
@@ -1779,7 +1777,7 @@ Html
     .highlight-label {
       color: var(--muted);
 
-      font-size: 11px;
+      font-size: 13px;
 
       line-height: 1.5;
     }
@@ -1924,10 +1922,10 @@ Html
     ===================================================== */
 
     .reveal {
-      opacity: 0;
+      opacity: 1;
 
       transform:
-        translateY(24px);
+        translateY(0);
 
       transition:
         opacity .7s
@@ -1976,11 +1974,11 @@ Html
         padding: 0 22px;
       }
 
-      .menu-btn {
+      .nav-enhanced .menu-btn:not([hidden]) {
         display: flex;
       }
 
-      .nav-links {
+      .nav-enhanced .nav-links {
         position: absolute;
 
         top: 72px;
@@ -2018,7 +2016,7 @@ Html
         transition: .25s ease;
       }
 
-      .nav-links.open {
+      .nav-enhanced .nav-links.open {
         opacity: 1;
 
         visibility: visible;
@@ -2198,10 +2196,33 @@ Html
 
     }
 
+
+    .skip-link { position:fixed; top:8px; left:8px; z-index:2000; padding:12px 18px; background:var(--navy); color:white; border-radius:8px; transform:translateY(-160%); }
+    .skip-link:focus { transform:none; }
+    :focus-visible { outline:3px solid var(--blue-dark); outline-offset:4px; }
+    main { scroll-margin-top:90px; }
+    .reveal.reveal-pending { opacity:0; transform:translateY(24px); }
+    .reveal:focus-within { opacity:1; transform:none; }
+    .hero-grid > *, .profile-top > *, .profile-row > *, .exp-card { min-width:0; }
+    .hero h1, .contact-details { overflow-wrap:anywhere; }
+    .profile-label, .stat-label, .tag, .product-tag, .project-pill, .exp-date { line-height:1.5; }
+    @media(max-width:850px) {
+      nav:not(.nav-enhanced) { position:relative; }
+      nav:not(.nav-enhanced) .nav-inner { height:auto; min-height:72px; flex-wrap:wrap; gap:16px; padding:16px 22px; }
+      nav:not(.nav-enhanced) .nav-links { width:100%; flex-wrap:wrap; gap:8px; }
+      .nav-enhanced .nav-links { max-height:calc(100vh - 88px); max-height:calc(100dvh - 88px); overflow-y:auto; }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      .reveal.reveal-pending { opacity:1; transform:none; }
+    }
+    @media print {
+      .reveal.reveal-pending { opacity:1; transform:none; }
+    }
   </style>
 </head>
 
 <body>
+<a class="skip-link" href="#main-content">Skip to content</a>
 
 <div class="page-bg"></div>
 <div class="orb orb-1"></div>
@@ -2267,6 +2288,9 @@ Html
     <button
       class="menu-btn"
       id="menuBtn"
+      type="button"
+      aria-controls="navLinks"
+      hidden
       aria-label="Open navigation menu"
       aria-expanded="false"
     >
@@ -2288,6 +2312,7 @@ Html
      HERO
 ===================================================== -->
 
+<main id="main-content" tabindex="-1">
 <section
   class="hero"
   id="home"
@@ -3453,9 +3478,9 @@ Html
 
           <div class="exp-head">
 
-            <div class="exp-title">
+            <h3 class="exp-title">
               Senior Business Analyst
-            </div>
+            </h3>
 
             <div class="exp-date">
               2022 – Present
@@ -3605,9 +3630,9 @@ Html
 
           <div class="exp-head">
 
-            <div class="exp-title">
+            <h3 class="exp-title">
               Business Analyst / Product Owner
-            </div>
+            </h3>
 
             <div class="exp-date">
               2019 – 2022
@@ -4124,7 +4149,7 @@ Html
       </p>
 
       <a
-        href="mailto:me@pranavsathababu.com"
+        href="mailto:me@pranavsathyababu.com"
         class="contact-btn"
       >
         Email Me
@@ -4153,6 +4178,8 @@ Html
      FOOTER
 ===================================================== -->
 
+</main>
+
 <footer>
 
   <div class="container">
@@ -4174,215 +4201,99 @@ Html
 
 <script>
 
-  /* NAVBAR */
-
-  const navbar =
-    document.getElementById("navbar");
+  const navbar = document.getElementById("navbar");
+  const menuBtn = document.getElementById("menuBtn");
+  const navLinks = document.getElementById("navLinks");
+  const mobile = window.matchMedia("(max-width:850px)");
+  const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   function updateNavbar() {
-
-    navbar.classList.toggle(
-      "scrolled",
-      window.scrollY > 20
-    );
-
+    navbar.classList.toggle("scrolled", window.scrollY > 20);
   }
-
-  window.addEventListener(
-    "scroll",
-    updateNavbar,
-    { passive: true }
-  );
-
+  window.addEventListener("scroll", updateNavbar, {passive:true});
   updateNavbar();
 
-
-  /* MOBILE MENU */
-
-  const menuBtn =
-    document.getElementById("menuBtn");
-
-  const navLinks =
-    document.getElementById("navLinks");
-
-  menuBtn.addEventListener(
-    "click",
-    () => {
-
-      const open =
-        navLinks.classList.toggle("open");
-
-      menuBtn.classList.toggle(
-        "open",
-        open
-      );
-
-      menuBtn.setAttribute(
-        "aria-expanded",
-        String(open)
-      );
-
+  function setMenu(open, restoreFocus = false) {
+    navLinks.classList.toggle("open", open);
+    menuBtn.classList.toggle("open", open);
+    menuBtn.setAttribute("aria-expanded", String(open));
+    menuBtn.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+    if (restoreFocus) menuBtn.focus();
+  }
+  menuBtn.addEventListener("click", () => setMenu(menuBtn.getAttribute("aria-expanded") !== "true"));
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && menuBtn.getAttribute("aria-expanded") === "true") {
+      setMenu(false, true);
     }
-  );
-
-
-  document
-    .querySelectorAll(".nav-links a")
-    .forEach(link => {
-
-      link.addEventListener(
-        "click",
-        () => {
-
-          navLinks.classList.remove("open");
-
-          menuBtn.classList.remove("open");
-
-          menuBtn.setAttribute(
-            "aria-expanded",
-            "false"
-          );
-
-        }
-      );
-
+  });
+  navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+    setMenu(false);
+    const target = document.querySelector(link.getAttribute("href"));
+    if (target) {
+      target.setAttribute("tabindex", "-1");
+      target.focus({preventScroll:true});
+    }
+  }));
+  // Older browsers can retain the usable, expanded navigation fallback.
+  if (mobile.addEventListener) {
+    mobile.addEventListener("change", () => {
+      const restoreFocus = mobile.matches && navLinks.contains(document.activeElement);
+      setMenu(false, restoreFocus);
+      if (!mobile.matches && document.activeElement === menuBtn) navLinks.querySelector("a").focus();
     });
-
-
-  /* REVEAL */
-
-  const reducedMotion =
-    window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-
-  if (!reducedMotion) {
-
-    const revealObserver =
-      new IntersectionObserver(
-
-        entries => {
-
-          entries.forEach(entry => {
-
-            if (
-              entry.isIntersecting
-            ) {
-
-              entry.target
-                .classList
-                .add("visible");
-
-              revealObserver
-                .unobserve(
-                  entry.target
-                );
-
-            }
-
-          });
-
-        },
-
-        {
-          threshold: .12,
-
-          rootMargin:
-            "0px 0px -40px 0px"
-        }
-
-      );
-
-
-    document
-      .querySelectorAll(".reveal")
-      .forEach(el =>
-        revealObserver.observe(el)
-      );
-
   }
+  menuBtn.hidden = false;
+  navbar.classList.add("nav-enhanced");
 
-  else {
-
-    document
-      .querySelectorAll(".reveal")
-      .forEach(el =>
-        el.classList.add("visible")
-      );
-
+  const reveals = [...document.querySelectorAll(".reveal")];
+  let revealObserver;
+  function showAll() {
+    if (revealObserver) revealObserver.disconnect();
+    reveals.forEach(el => el.classList.remove("reveal-pending"));
   }
-
-
-  /* ACTIVE NAV */
-
-  const sections =
-    document.querySelectorAll(
-      "section[id]"
-    );
-
-  const links =
-    document.querySelectorAll(
-      ".nav-links a[href^='#']"
-    );
-
-
-  const sectionObserver =
-    new IntersectionObserver(
-
-      entries => {
-
+  if (!motion.matches && "IntersectionObserver" in window) {
+    try {
+      revealObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-
-          if (
-            !entry.isIntersecting
-          ) {
-            return;
+          if (entry.isIntersecting) {
+            entry.target.classList.remove("reveal-pending");
+            revealObserver.unobserve(entry.target);
           }
-
-          const id =
-            entry.target.id;
-
-          links.forEach(link => {
-
-            link.classList.remove(
-              "active"
-            );
-
-            if (
-              link.getAttribute("href")
-              === "#" + id
-            ) {
-
-              link.classList.add(
-                "active"
-              );
-
-            }
-
-          });
-
         });
+      }, {threshold:0});
+      reveals.forEach(el => {
+        if (el.getBoundingClientRect().top >= window.innerHeight) {
+          revealObserver.observe(el);
+          el.classList.add("reveal-pending");
+        }
+      });
+    } catch (error) {
+      showAll();
+    }
+  }
+  if (motion.addEventListener) motion.addEventListener("change", showAll);
+  window.addEventListener("beforeprint", showAll);
 
-      },
-
-      {
-        rootMargin:
-          "-35% 0px -55% 0px",
-
-        threshold: 0
-      }
-
-    );
-
-
-  sections.forEach(
-    section =>
-      sectionObserver.observe(
-        section
-      )
-  );
-
+  const sections = document.querySelectorAll("section[id]");
+  const links = document.querySelectorAll(".nav-links a[href^='#']");
+  if ("IntersectionObserver" in window) {
+    try {
+      const sectionObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          links.forEach(link => {
+            const active = link.getAttribute("href") === "#" + entry.target.id;
+            link.classList.toggle("active", active);
+            if (active) link.setAttribute("aria-current", "location");
+            else link.removeAttribute("aria-current");
+          });
+        });
+      }, {rootMargin:"-35% 0px -55% 0px", threshold:0});
+      sections.forEach(section => sectionObserver.observe(section));
+    } catch (error) {
+      // Navigation links remain usable without scroll-position highlighting.
+    }
+  }
 </script>
 
 </body>
